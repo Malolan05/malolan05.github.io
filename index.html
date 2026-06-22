@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sundera Malolan T</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ─────────────────────────────────────────── */
+    :root {
+      --ink:       #1a1a2e;
+      --ink-soft:  #4a4a6a;
+      --paper:     #f7f5f0;
+      --accent:    #7c3aed;        /* deep violet */
+      --accent-lt: #ede9fe;
+      --gold:      #c9a84c;
+      --rule:      #d4d0e8;
+      --mono:      'DM Mono', monospace;
+      --serif:     'EB Garamond', Georgia, serif;
+      --sans:      'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Grid shell ─────────────────────────────────────── */
+    .shell {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 32px 120px;
+    }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    .hero {
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 48px;
+      margin-bottom: 56px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .meta-chip svg { opacity: 0.55; }
+
+    /* ── Section label ──────────────────────────────────── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── Sections ───────────────────────────────────────── */
+    section { margin-bottom: 56px; }
+
+    /* ── Education card ─────────────────────────────────── */
+    .edu-card {
+      background: white;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 24px;
+      align-items: start;
+    }
+
+    .edu-card h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
+      grid-column: 1;
+    }
+
+    .edu-card .inst {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-top: 2px;
+    }
+
+    .edu-card .year {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--accent);
+      white-space: nowrap;
+      text-align: right;
+      grid-column: 2;
+      grid-row: 1;
+      padding-top: 4px;
+    }
+
+    /* ── Skills grid ────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-pill {
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-lt);
+    }
+
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── Interests ──────────────────────────────────────── */
+    .interests-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .interest-tag {
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Contact row ────────────────────────────────────── */
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 0.875rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--mono);
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-lt);
+    }
+
+    /* ── PROJECTS FLOATING PANEL ────────────────────────── */
+    .projects-panel {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 100;
+      width: 260px;
+    }
+
+    .projects-toggle {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px 8px 0 0;
+      padding: 11px 18px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .projects-toggle:hover { background: #6d28d9; }
+
+    .toggle-arrow {
+      transition: transform 0.25s;
+      display: inline-block;
+    }
+
+    .projects-panel.open .toggle-arrow { transform: rotate(180deg); }
+
+    .projects-body {
+      background: white;
+      border: 1.5px solid var(--accent);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .projects-panel.open .projects-body {
+      max-height: 400px;
+    }
+
+    .projects-inner {
+      padding: 18px 18px 20px;
+    }
+
+    .panel-heading {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .panel-sub {
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .panel-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--ink);
+      margin-bottom: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .panel-link:last-child { margin-bottom: 0; }
+
+    .panel-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-lt);
+    }
+
+    .panel-link-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .panel-link-text strong {
+      display: block;
+      font-size: 0.83rem;
+      font-weight: 500;
+      margin-bottom: 1px;
+    }
+
+    .panel-link-text span {
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      font-family: var(--mono);
+    }
+
+    /* ── Decorative math motif ──────────────────────────── */
+    .math-motif {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--rule);
+      letter-spacing: 0.05em;
+      user-select: none;
+      margin-top: 6px;
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-soft);
+      opacity: 0.6;
+      padding-top: 32px;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .shell { padding: 36px 20px 100px; }
+      .edu-card { grid-template-columns: 1fr; }
+      .edu-card .year { grid-column: 1; grid-row: auto; text-align: left; }
+      .projects-panel { width: 220px; right: 14px; bottom: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ── Hero ── -->
+  <header class="hero">
+    <p class="hero-eyebrow">Portfolio &amp; Resume</p>
+    <h1>Sundera<br/><em>Malolan</em> T</h1>
+    <p class="hero-sub">Mathematician in training — finding structure in numbers, patterns, and ideas.</p>
+    <div class="hero-meta">
+      <span class="meta-chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Hyderabad, India
+      </span>
+      <span class="meta-chip">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        BITS Pilani · Hyderabad Campus
+      </span>
+    </div>
+    <div class="math-motif">∫ · ∑ · ∂ · ∇ · ∞ · ℝ · ℂ · π · φ · λ · δ · Γ · Ω · ζ</div>
+  </header>
+
+  <!-- ── Education ── -->
+  <section>
+    <p class="section-label">Education</p>
+    <div class="edu-card">
+      <h3>B.E. + M.Sc. — Mathematics (Dual Degree)</h3>
+      <div class="year">2023 – 2028</div>
+      <p class="inst">Birla Institute of Technology &amp; Science, Pilani — Hyderabad Campus</p>
+    </div>
+  </section>
+
+  <!-- ── Skills / Areas of Interest ── -->
+  <section>
+    <p class="section-label">Areas of Study</p>
+    <div class="skills-grid">
+      <div class="skill-pill"><span class="skill-dot"></span>Linear Algebra</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Real Analysis</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Probability Theory</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Discrete Mathematics</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Number Theory</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Differential Equations</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Complex Analysis</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Combinatorics</div>
+    </div>
+  </section>
+
+  <!-- ── Interests ── -->
+  <section>
+    <p class="section-label">Interests</p>
+    <div class="interests-list">
+      <span class="interest-tag">Classical Music</span>
+      <span class="interest-tag">Mathematical Logic</span>
+      <span class="interest-tag">Programming</span>
+      <span class="interest-tag">Sanskrit Literature</span>
+      <span class="interest-tag">Open Source</span>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section>
+    <p class="section-label">Contact</p>
+    <div class="contact-row">
+      <a class="contact-link" href="https://github.com/malolan05" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5.1 18 5.4 18 5.4c.7 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        github.com/malolan05
+      </a>
+      <a class="contact-link" href="mailto:malolan@example.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Email
+      </a>
+    </div>
+  </section>
+
+  <footer>Sundera Malolan T · malolan05.github.io · Built with HTML &amp; GitHub Pages</footer>
+
+</div>
+
+<!-- ── FLOATING PROJECTS PANEL ── -->
+<div class="projects-panel" id="panel">
+  <button class="projects-toggle" onclick="togglePanel()" aria-expanded="false" aria-controls="panelBody">
+    <span>My Projects</span>
+    <span class="toggle-arrow">▲</span>
+  </button>
+  <div class="projects-body" id="panelBody" role="region">
+    <div class="projects-inner">
+      <p class="panel-heading">Live Projects</p>
+      <p class="panel-sub">Interactive tools &amp; explorations I've built.</p>
+
+      <a class="panel-link"
+         href="https://malolan05.github.io/sAmam/index.html?file=AgnEyam-text.tsv"
+         target="_blank" rel="noopener">
+        <span class="panel-link-icon">🎵</span>
+        <span class="panel-link-text">
+          <strong>sAmam</strong>
+          <span>malolan05.github.io/sAmam</span>
+        </span>
+      </a>
+
+      <!-- Add more project links here -->
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePanel() {
+    const panel = document.getElementById('panel');
+    const btn   = panel.querySelector('.projects-toggle');
+    const open  = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }
+
+  // Open by default after a short delay
+  setTimeout(() => {
+    document.getElementById('panel').classList.add('open');
+    document.querySelector('.projects-toggle').setAttribute('aria-expanded', 'true');
+  }, 600);
+</script>
+
+</body>
+</html>
