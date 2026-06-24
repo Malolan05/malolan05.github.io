@@ -483,17 +483,9 @@
       <span class="accent">Malolan</span> T
     </h1>
 
-    <div class="hero-photo" id="photoSlot" title="Click to upload your photo">
-      <div class="hero-photo-placeholder" id="photoPlaceholder">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-        </svg>
-        add photo
-      </div>
-      <input type="file" accept="image/*" id="photoInput" aria-label="Upload profile photo" />
-    </div>
-  </div>
+    <div class="hero-photo">
+      <img src="profile-pic.png" alt="Sundera Malolan T" />
+</div>
 
   <p class="hero-tagline">
     Engineer in training — finding structure in numbers,<br/>
@@ -637,28 +629,13 @@
 </footer>
 
 <script>
-  /* ── Photo upload preview ── */
-  (function () {
-    const input = document.getElementById('photoInput');
-    const slot  = document.getElementById('photoSlot');
-    const placeholder = document.getElementById('photoPlaceholder');
-
-    input.addEventListener('change', function () {
-      const file = this.files[0];
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = 'Sundera Malolan T';
-      placeholder.style.display = 'none';
-      slot.insertBefore(img, input);
-    });
-  })();
+  
   (function () {
     const symbols = [
-      'ॐ','अ','क','ग','ण','त','न','प','म','र','ल','व','श','ह',
+      'ॐ','अ','क','ग','ण','त','न','प','म','र','ल','व','श','ह', ஶ்ரீ, க்ஷ, '𑌶','𑌪','𑌤','𑌰','𑌸','𑍋','𑍐','𑍈','𑍁',
+      కా, హై, ము, ఋ, శ్రీ, ప్రీ, ష్ణు, క్ళై, త్క్స,
       '∫','∑','∂','∇','∞','π','φ','λ','ζ','Γ','Ω','ℝ','ℂ',
-      'श्री','ॐ नमः','तत् सत्'
+      'श्री','राम','तत् सत्'
     ];
     const canvas = document.getElementById('glyphCanvas');
     const W = window.innerWidth;
