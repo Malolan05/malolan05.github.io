@@ -1,52 +1,668 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sunder Malolan T</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0f172a;--card:#111827cc;--paper:#f7f3ea;--gold:#d4a017;--muted:#94a3b8}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,sans-serif;background:linear-gradient(180deg,#0f172a,#172033 35%,#f7f3ea 35%);color:#222}
-nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:2rem;padding:18px;background:#0f172acc;backdrop-filter:blur(12px);z-index:9}
-nav a{color:#fff;text-decoration:none}
-.hero{min-height:100vh;display:grid;grid-template-columns:260px 1fr;gap:60px;align-items:center;max-width:1100px;margin:auto;padding:100px 30px;color:#fff}
-.photo{width:240px;height:240px;border-radius:20px;border:4px solid var(--gold);background:#222 url('profile-pic.png') center/cover}
-h1{font:700 4rem Cinzel,serif;margin:.2em 0}.gold{color:var(--gold)}
-.btn{display:inline-block;padding:12px 22px;border:1px solid var(--gold);color:#fff;text-decoration:none;margin-right:10px;border-radius:8px}
-.btn:hover{background:var(--gold);color:#111}
-main{background:var(--paper);border-radius:40px 40px 0 0;padding:70px 0}
-section{max-width:1100px;margin:auto;padding:60px 30px}
-h2{font:700 2rem Cinzel;color:#222}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.card{background:white;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08);transition:.3s}
-.card:hover{transform:translateY(-8px)}
-.timeline{border-left:3px solid var(--gold);padding-left:24px}
-.item{margin-bottom:28px}
-.tags span{display:inline-block;background:#eee;padding:7px 12px;border-radius:999px;margin:6px}
-footer{text-align:center;padding:40px;background:#111827;color:#ddd}
-@media(max-width:800px){.hero{grid-template-columns:1fr;text-align:center}.photo{margin:auto}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sundera Malolan T</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Tokens ── */
+    :root {
+      --night:     #0d1117;
+      --night-mid: #161b22;
+      --night-rim: #21262d;
+      --parchment: #f0ebe0;
+      --parchment-dim: #e4ddd0;
+      --ink:       #1c1917;
+      --ink-soft:  #57534e;
+      --saffron:   #e8a020;
+      --saffron-lt:#fef3c7;
+      --sage:      #4d7c5f;
+      --sage-lt:   #dcf5e5;
+      --star:      #c9d1d9;
+
+      --cinzel: 'Cinzel', Georgia, serif;
+      --lora:   'Lora', Georgia, serif;
+      --mono:   'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--lora);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--night);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background: drifting Sanskrit syllables */
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glyph {
+      position: absolute;
+      font-family: serif;
+      color: rgba(232,160,32,0.07);
+      animation: drift linear infinite;
+      user-select: none;
+      line-height: 1;
+    }
+    @keyframes drift {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 0.6; }
+      100% { transform: translateY(-20vh) rotate(15deg); opacity: 0; }
+    }
+
+    /* Horizontal rule-line accent above name */
+    .hero-rule {
+      width: 64px;
+      height: 2px;
+      background: var(--saffron);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      gap: 36px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 32px;
+    }
+
+    .hero-name {
+      font-family: var(--cinzel);
+      font-size: clamp(3rem, 9vw, 7rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--parchment);
+      flex: 1;
+    }
+    .hero-name .accent { color: var(--saffron); }
+
+    /* ── Photo slot ── */
+    .hero-photo {
+      flex-shrink: 0;
+      width: clamp(100px, 14vw, 160px);
+      aspect-ratio: 1;
+      border-radius: 6px;
+      border: 2px solid rgba(232,160,32,0.4);
+      overflow: hidden;
+      position: relative;
+      background: rgba(255,255,255,0.04);
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.25);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-align: center;
+      line-height: 1.4;
+      padding: 12px;
+      display: none; /* Hidden by default, shown if image fails to load */
+    }
+    .hero-photo img.not-found + .hero-photo-placeholder {
+      display: flex;
+    }
+
+    @media (max-width: 480px) {
+      .hero-bottom { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+      .hero-photo { width: 80px; }
+    }
+
+    .hero-tagline {
+      font-family: var(--lora);
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      font-style: italic;
+      color: var(--star);
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 36px;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 3px;
+      padding: 8px 16px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--star);
+      letter-spacing: 0.04em;
+    }
+    .hero-pill .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--saffron);
+      flex-shrink: 0;
+    }
+
+    /* Scroll nudge */
+    .scroll-nudge {
+      position: absolute;
+      bottom: 24px;
+      right: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      z-index: 1;
+      animation: nudge 2.4s ease-in-out infinite;
+    }
+    @keyframes nudge {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+    .scroll-nudge svg { opacity: 0.4; }
+
+    /* ── BODY WRAPPER ── */
+    .body-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 40px 120px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 32px;
+    }
+    .sec-label::before {
+      content: '';
+      width: 28px;
+      height: 1.5px;
+      background: var(--saffron);
+      flex-shrink: 0;
+    }
+    .sec-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--parchment-dim);
+    }
+
+    section { margin-bottom: 72px; }
+
+    /* ── EDUCATION ── */
+    .edu-timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .edu-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1.5px;
+      background: linear-gradient(to bottom, var(--saffron), transparent);
+    }
+    .edu-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--parchment);
+      border: 2px solid var(--saffron);
+    }
+    .edu-year {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--saffron);
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .edu-degree {
+      font-family: var(--cinzel);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .edu-school {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .project-card {
+      background: var(--night);
+      border-radius: 6px;
+      padding: 16px 18px 14px;
+      text-decoration: none;
+      color: var(--star);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--saffron);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.28s ease;
+    }
+    .project-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .project-name {
+      font-family: var(--cinzel);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--parchment);
+    }
+    .project-desc {
+      font-family: var(--lora);
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: rgba(201,209,217,0.72);
+      flex: 1;
+    }
+    .project-url {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--saffron);
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--parchment-dim);
+      border-radius: 4px;
+      font-family: var(--lora);
+      font-size: 0.875rem;
+      color: var(--ink);
+      background: white;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .skill-item:hover {
+      border-color: var(--saffron);
+      background: var(--saffron-lt);
+    }
+    .skill-pip {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--saffron);
+      flex-shrink: 0;
+    }
+
+    /* ── INTERESTS ── */
+    .interests-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .interest-tag {
+      font-family: var(--lora);
+      font-size: 0.875rem;
+      color: var(--sage);
+      background: var(--sage-lt);
+      border: 1px solid rgba(77,124,95,0.2);
+      border-radius: 3px;
+      padding: 6px 14px;
+      font-style: italic;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 20px;
+      border: 1.5px solid var(--parchment-dim);
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      background: white;
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
+    }
+    .contact-link:hover {
+      border-color: var(--night);
+      color: var(--night);
+      background: var(--parchment-dim);
+    }
+    .contact-link svg { flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--ink-soft);
+      opacity: 0.5;
+      padding-top: 32px;
+      border-top: 1px solid var(--parchment-dim);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .hero { padding: 0 24px 48px; }
+      .body-wrap { padding: 56px 24px 80px; }
+      .scroll-nudge { right: 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-<nav><a href="#about">About</a><a href="#education">Education</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
-<header class="hero">
-<div class="photo"></div>
-<div>
-<p style="letter-spacing:4px;color:var(--gold)">PORTFOLIO</p>
-<h1>Sunder <span class="gold">Malolan</span> T</h1>
-<p style="font-size:1.2rem;color:#dbe4ef">Dual Degree Student • Chemical Engineering & Mathematics • BITS Pilani Hyderabad</p>
-<p style="max-width:700px;line-height:1.8">I build digital resources around Sanskrit texts, OCR workflows, mathematics, and modern web development while exploring computational humanities.</p>
-<a class="btn" href="#projects">Projects</a><a class="btn" href="#contact">Contact</a>
-</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero" role="banner">
+  <div class="hero-canvas" aria-hidden="true" id="glyphCanvas"></div>
+
+  <div class="hero-rule"></div>
+  <p class="hero-eyebrow">Portfolio &amp; Résumé</p>
+
+  <div class="hero-bottom">
+    <h1 class="hero-name">
+      Sundera<br/>
+      <span class="accent">Malolan</span> T
+    </h1>
+
+    <div class="hero-photo" id="photoSlot">
+      <img src="profile-pic.png" alt="Sundera Malolan T" id="profileImage" />
+      <div class="hero-photo-placeholder" id="photoPlaceholder">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        photo not found
+      </div>
+    </div>
+  </div>
+
+  <p class="hero-tagline">
+    Engineer in training — finding structure in numbers,<br/>
+    chemical compounds, and ancient manuscripts.
+  </p>
+
+  <div class="hero-pills">
+    <span class="hero-pill"><span class="dot"></span>BITS Pilani · Hyderabad</span>
+    <span class="hero-pill"><span class="dot"></span>B.E. + M.Sc. Mathematics</span>
+    <span class="hero-pill"><span class="dot"></span>Chennai, India</span>
+  </div>
+
+  <div class="scroll-nudge" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+    scroll
+  </div>
 </header>
-<main>
-<section id="about"><h2>About</h2><p>I enjoy combining mathematics, software engineering, OCR, and Indic manuscripts into practical digital tools. My interests span full-stack development, computational humanities, and open-source preservation of traditional knowledge.</p></section>
-<section id="education"><h2>Education</h2><div class="timeline"><div class="item"><strong>2024–2029</strong><br>B.E. Chemical Engineering + M.Sc. Mathematics<br>BITS Pilani Hyderabad</div><div class="item"><strong>2021–2024</strong><br>Maharishi Vidya Mandir, Chennai</div><div class="item"><strong>2009–2021</strong><br>SRDF Vivekananda Vidyalaya</div></div></section>
-<section id="projects"><h2>Featured Projects</h2><div class="grid"><div class="card"><h3>sAmam</h3><p>Interactive exploration of the Samaveda with structured navigation and searchable hymns.</p></div><div class="card"><h3>Agama</h3><p>Digitisation and OCR correction of Vaishnava Agama manuscripts for public access.</p></div></div></section>
-<section id="skills"><h2>Skills</h2><div class="tags"><span>React</span><span>JavaScript</span><span>Python</span><span>OCR</span><span>Mathematics</span><span>Probability</span><span>Sanskrit</span><span>Tamil</span><span>Git</span><span>SQL</span></div></section>
-<section id="contact"><h2>Contact</h2><p>Email: tsmalolan@gmail.com<br>GitHub: github.com/malolan05<br>LinkedIn: sunder-malolan-t</p></section>
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<main class="body-wrap">
+
+  <!-- Education -->
+  <section aria-labelledby="edu-label">
+    <p class="sec-label" id="edu-label">Education</p>
+    <div class="edu-timeline">
+
+      <div class="edu-item">
+        <div class="edu-year">2009 – 2021</div>
+        <div class="edu-degree">High School</div>
+        <div class="edu-school">SRDF Vivekananda Vidyalaya, Chromepet, Chennai</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2021 – 2024</div>
+        <div class="edu-degree">Higher Secondary School</div>
+        <div class="edu-school">Maharishi Vidya Mandir Chetpet, Chennai</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2024 – 2029</div>
+        <div class="edu-degree">B.E. + M.Sc. — Mathematics (Dual Degree)</div>
+        <div class="edu-school">Birla Institute of Technology &amp; Science, Pilani — Hyderabad Campus</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section aria-labelledby="proj-label">
+    <p class="sec-label" id="proj-label">Projects</p>
+    <div class="projects-grid">
+
+      <a class="project-card" href="https://malolan05.github.io/sAmam/index.html" target="_blank" rel="noopener">
+        <div class="project-icon">𝄞</div>
+        <div class="project-name">sAmam</div>
+        <p class="project-desc">An interactive table exploring the Sāmaveda — its hymns, melodies, and structure, built as a living web project.</p>
+        <span class="project-url">malolan05.github.io/sAmam</span>
+      </a>
+
+      <a class="project-card" href="https://malolan05.github.io/Agama" target="_blank" rel="noopener">
+        <div class="project-icon">📜</div>
+        <div class="project-name">Āgama</div>
+        <p class="project-desc">A repository of Vaiṣṇava Āgama texts, assembled by digitising and correcting OCR outputs of Sanskrit manuscripts.</p>
+        <span class="project-url">malolan05.github.io/Agama</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Areas of Study -->
+  <section aria-labelledby="skills-label">
+    <p class="sec-label" id="skills-label">Areas of Study</p>
+    <div class="skills-grid">
+      <div class="skill-item"><span class="skill-pip"></span>Algebra</div>
+      <div class="skill-item"><span class="skill-pip"></span>Probability Theory</div>
+      <div class="skill-item"><span class="skill-pip"></span>React · JavaScript</div>
+      <div class="skill-item"><span class="skill-pip"></span>Databases</div>
+      <div class="skill-item"><span class="skill-pip"></span>OCR Development</div>
+      <div class="skill-item"><span class="skill-pip"></span>Sanskrit &amp; Tamil</div>
+      <div class="skill-item"><span class="skill-pip"></span>Chemical Analysis</div>
+      <div class="skill-item"><span class="skill-pip"></span>Quality Control</div>
+    </div>
+  </section>
+
+  <!-- Interests -->
+  <section aria-labelledby="interests-label">
+    <p class="sec-label" id="interests-label">Interests</p>
+    <div class="interests-wrap">
+      <span class="interest-tag">Scripts &amp; digital palaeography</span>
+      <span class="interest-tag">Mathematical logic</span>
+      <span class="interest-tag">Full-stack web development</span>
+      <span class="interest-tag">Sanskrit literature</span>
+      <span class="interest-tag">Open-source contribution</span>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section aria-labelledby="contact-label">
+    <p class="sec-label" id="contact-label">Contact</p>
+    <div class="contact-grid">
+
+      <a class="contact-link" href="https://github.com/malolan05" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5.1 18 5.4 18 5.4c.7 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
+        </svg>
+        github.com/malolan05
+      </a>
+
+      <a class="contact-link" href="https://www.linkedin.com/in/sunder-malolan-t-9423bb179/" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.1c.7-1.3 2.3-2.7 4.8-2.7 5.1 0 6.1 3.4 6.1 7.8V24h-5v-7.2c0-1.7 0-3.9-2.4-3.9-2.4 0-2.8 1.9-2.8 3.8V24H8z"/>
+        </svg>
+        LinkedIn
+      </a>
+
+      <a class="contact-link" href="mailto:tsmalolan@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 7l10 7 10-7"/>
+        </svg>
+        tsmalolan@gmail.com
+      </a>
+
+      <a class="contact-link" href="mailto:tsunderamalolan@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 7l10 7 10-7"/>
+        </svg>
+        tsunderamalolan@gmail.com
+      </a>
+
+    </div>
+  </section>
+
 </main>
-<footer>Designed & Built by Sunder Malolan T • 2026</footer>
-</body></html>
+
+<footer>
+  Sundera Malolan T · malolan05.github.io · Built with HTML &amp; GitHub Pages
+</footer>
+
+<script>
+  /* ── Handle image load error ── */
+  (function () {
+    const img = document.getElementById('profileImage');
+    const placeholder = document.getElementById('photoPlaceholder');
+    
+    img.addEventListener('error', function() {
+      img.style.display = 'none';
+      placeholder.style.display = 'flex';
+    });
+  })();
+  
+  /* ── Drifting glyphs animation ── */
+  (function () {
+    const symbols = [
+      'ॐ','अ','क','ग','ण','त','न','प','म','र','ल','व','श','ह',
+      '∫','∑','∂','∇','∞','π','φ','λ','ζ','Γ','Ω','ℝ','ℂ',
+      'श्री','ॐ नमः','तत् सत्'
+    ];
+    const canvas = document.getElementById('glyphCanvas');
+    const W = window.innerWidth;
+    const count = Math.min(30, Math.floor(W / 40));
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'glyph';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.cssText = [
+        `left: ${Math.random() * 100}%`,
+        `font-size: ${18 + Math.random() * 36}px`,
+        `animation-duration: ${12 + Math.random() * 24}s`,
+        `animation-delay: ${-(Math.random() * 30)}s`,
+        `opacity: 0`
+      ].join(';');
+      canvas.appendChild(el);
+    }
+  })();
+</script>
+
+</body>
+</html>
