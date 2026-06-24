@@ -1,14 +1,16 @@
+This is a complete HTML document for a personal portfolio page. It presents your information with a refined, academic style and includes the new "Languages" section you requested.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sunder Malolan T</title>
+  <title>Sunder Malolan T · portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
-    /* ── Tokens ── */
+    /* ── tokens ── */
     :root {
       --night:     #0d1117;
       --night-mid: #161b22;
@@ -51,7 +53,6 @@
       overflow: hidden;
     }
 
-    /* Background: drifting Sanskrit syllables */
     .hero-canvas {
       position: absolute;
       inset: 0;
@@ -74,7 +75,6 @@
       100% { transform: translateY(-20vh) rotate(15deg); opacity: 0; }
     }
 
-    /* Horizontal rule-line accent above name */
     .hero-rule {
       width: 64px;
       height: 2px;
@@ -115,7 +115,6 @@
     }
     .hero-name .accent { color: var(--saffron); }
 
-    /* ── Photo slot ── */
     .hero-photo {
       flex-shrink: 0;
       width: clamp(100px, 14vw, 160px);
@@ -147,7 +146,7 @@
       text-align: center;
       line-height: 1.4;
       padding: 12px;
-      display: none; /* Hidden by default, shown if image fails to load */
+      display: none;
     }
     .hero-photo img.not-found + .hero-photo-placeholder {
       display: flex;
@@ -196,7 +195,6 @@
       flex-shrink: 0;
     }
 
-    /* Scroll nudge */
     .scroll-nudge {
       position: absolute;
       bottom: 24px;
@@ -219,14 +217,14 @@
     }
     .scroll-nudge svg { opacity: 0.4; }
 
-    /* ── BODY WRAPPER ── */
+    /* ── body wrapper ── */
     .body-wrap {
       max-width: 900px;
       margin: 0 auto;
       padding: 80px 40px 120px;
     }
 
-    /* ── SECTION LABEL ── */
+    /* ── section label ── */
     .sec-label {
       display: flex;
       align-items: center;
@@ -254,7 +252,7 @@
 
     section { margin-bottom: 72px; }
 
-    /* ── EDUCATION ── */
+    /* ── education ── */
     .edu-timeline {
       position: relative;
       padding-left: 32px;
@@ -304,7 +302,7 @@
       font-style: italic;
     }
 
-    /* ── PROJECTS ── */
+    /* ── projects ── */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -360,7 +358,7 @@
       margin-top: 2px;
     }
 
-    /* ── SKILLS ── */
+    /* ── skills / areas ── */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -390,7 +388,44 @@
       flex-shrink: 0;
     }
 
-    /* ── INTERESTS ── */
+    /* ── languages (new) ── */
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+    .lang-card {
+      background: white;
+      border: 1px solid var(--parchment-dim);
+      border-radius: 4px;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 8px;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .lang-card:hover {
+      border-color: var(--sage);
+      background: var(--sage-lt);
+    }
+    .lang-name {
+      font-family: var(--cinzel);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+    .lang-level {
+      font-family: var(--lora);
+      font-size: 0.75rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      background: var(--parchment);
+      padding: 0 6px;
+      border-radius: 2px;
+    }
+
+    /* ── interests ── */
     .interests-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -407,7 +442,7 @@
       font-style: italic;
     }
 
-    /* ── CONTACT ── */
+    /* ── contact ── */
     .contact-grid {
       display: flex;
       flex-wrap: wrap;
@@ -434,7 +469,6 @@
     }
     .contact-link svg { flex-shrink: 0; }
 
-    /* ── FOOTER ── */
     footer {
       text-align: center;
       font-family: var(--mono);
@@ -445,7 +479,6 @@
       border-top: 1px solid var(--parchment-dim);
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       .hero { padding: 0 24px 48px; }
       .body-wrap { padding: 56px 24px 80px; }
@@ -459,7 +492,7 @@
 </head>
 <body>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- ═══ HERO ═══ -->
 <header class="hero" role="banner">
   <div class="hero-canvas" aria-hidden="true" id="glyphCanvas"></div>
 
@@ -503,32 +536,28 @@
   </div>
 </header>
 
-<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<!-- ═══ MAIN ═══ -->
 <main class="body-wrap">
 
   <!-- Education -->
   <section aria-labelledby="edu-label">
     <p class="sec-label" id="edu-label">Education</p>
     <div class="edu-timeline">
-
       <div class="edu-item">
         <div class="edu-year">2009 – 2021</div>
         <div class="edu-degree">High School</div>
         <div class="edu-school">SRDF Vivekananda Vidyalaya, Chromepet, Chennai</div>
       </div>
-
       <div class="edu-item">
         <div class="edu-year">2021 – 2024</div>
         <div class="edu-degree">Higher Secondary School</div>
         <div class="edu-school">Maharishi Vidya Mandir Chetpet, Chennai</div>
       </div>
-
       <div class="edu-item">
         <div class="edu-year">2024 – 2029</div>
         <div class="edu-degree">B.E. + M.Sc. — Mathematics (Dual Degree)</div>
         <div class="edu-school">Birla Institute of Technology &amp; Science, Pilani — Hyderabad Campus</div>
       </div>
-
     </div>
   </section>
 
@@ -536,28 +565,24 @@
   <section aria-labelledby="proj-label">
     <p class="sec-label" id="proj-label">Projects</p>
     <div class="projects-grid">
-
       <a class="project-card" href="https://malolan05.github.io/sAmam/index.html" target="_blank" rel="noopener">
         <div class="project-icon">𝄞</div>
         <div class="project-name">sAmam</div>
         <p class="project-desc">An interactive table exploring the Sāmaveda — its hymns, melodies, and structure, built as a living web project.</p>
         <span class="project-url">malolan05.github.io/sAmam</span>
       </a>
-
       <a class="project-card" href="https://malolan05.github.io/Agama" target="_blank" rel="noopener">
         <div class="project-icon">📜</div>
         <div class="project-name">Āgama</div>
         <p class="project-desc">A repository of Vaiṣṇava Āgama texts, assembled by digitising and correcting OCR outputs of Sanskrit manuscripts.</p>
         <span class="project-url">malolan05.github.io/Agama</span>
       </a>
-
       <a class="project-card" href="https://malolan05.github.io/srivaishnavam" target="_blank" rel="noopener">
         <div class="project-icon">📜</div>
         <div class="project-name">Śrīvaiṣṇava</div>
         <p class="project-desc">A repository of ŚrīVaiṣṇava texts, assembled by digitising and correcting OCR outputs of Sanskrit texts</p>
         <span class="project-url">malolan05.github.io/srivaishnavam</span>
       </a>
-
     </div>
   </section>
 
@@ -573,6 +598,18 @@
       <div class="skill-item"><span class="skill-pip"></span>Sanskrit &amp; Tamil</div>
       <div class="skill-item"><span class="skill-pip"></span>Chemical Analysis</div>
       <div class="skill-item"><span class="skill-pip"></span>Quality Control</div>
+    </div>
+  </section>
+
+  <!-- ═══ LANGUAGES (NEW) ═══ -->
+  <section aria-labelledby="lang-label">
+    <p class="sec-label" id="lang-label">Languages</p>
+    <div class="lang-grid">
+      <div class="lang-card"><span class="lang-name">English</span><span class="lang-level">full professional fluency</span></div>
+      <div class="lang-card"><span class="lang-name">Tamil</span><span class="lang-level">literary &amp; professional fluency</span></div>
+      <div class="lang-card"><span class="lang-name">Hindi</span><span class="lang-level">literary &amp; professional fluency</span></div>
+      <div class="lang-card"><span class="lang-name">Sanskrit</span><span class="lang-level">conversant &amp; literary proficiency</span></div>
+      <div class="lang-card"><span class="lang-name">Telugu</span><span class="lang-level">conversant &amp; literary proficiency</span></div>
     </div>
   </section>
 
@@ -592,21 +629,18 @@
   <section aria-labelledby="contact-label">
     <p class="sec-label" id="contact-label">Contact</p>
     <div class="contact-grid">
-
       <a class="contact-link" href="https://github.com/malolan05" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5.1 18 5.4 18 5.4c.7 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
         </svg>
         github.com/malolan05
       </a>
-
       <a class="contact-link" href="https://www.linkedin.com/in/sunder-malolan-t-9423bb179/" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.1c.7-1.3 2.3-2.7 4.8-2.7 5.1 0 6.1 3.4 6.1 7.8V24h-5v-7.2c0-1.7 0-3.9-2.4-3.9-2.4 0-2.8 1.9-2.8 3.8V24H8z"/>
         </svg>
         LinkedIn
       </a>
-
       <a class="contact-link" href="mailto:tsmalolan@gmail.com">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -614,7 +648,6 @@
         </svg>
         tsmalolan@gmail.com
       </a>
-
       <a class="contact-link" href="mailto:tsunderamalolan@gmail.com">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -622,7 +655,6 @@
         </svg>
         tsunderamalolan@gmail.com
       </a>
-
     </div>
   </section>
 
@@ -633,25 +665,27 @@
 </footer>
 
 <script>
-  /* ── Handle image load error ── */
+  /* ── image fallback ── */
   (function () {
     const img = document.getElementById('profileImage');
     const placeholder = document.getElementById('photoPlaceholder');
-    
-    img.addEventListener('error', function() {
-      img.style.display = 'none';
-      placeholder.style.display = 'flex';
-    });
+    if (img) {
+      img.addEventListener('error', function() {
+        img.style.display = 'none';
+        if (placeholder) placeholder.style.display = 'flex';
+      });
+    }
   })();
-  
-  /* ── Drifting glyphs animation ── */
+
+  /* ── drifting glyphs ── */
   (function () {
     const symbols = [
-      'ॐ','अ','क','ग','ण','त','न','प','म','र','ल','व','श','ह',
+      'ॐ','अ','क','ग','ण','त','न','జ్క','म','र','ल','व','श','క్ష','హ్రీ','க்ஷ','ஹ','ஸ்ரீ','ह',
       '∫','∑','∂','∇','∞','π','φ','λ','ζ','Γ','Ω','ℝ','ℂ',
-      'श्री','ॐ नमः','तत् सत्'
+      'श्री','नमः','तत् सत्'
     ];
     const canvas = document.getElementById('glyphCanvas');
+    if (!canvas) return;
     const W = window.innerWidth;
     const count = Math.min(30, Math.floor(W / 40));
 
@@ -670,6 +704,6 @@
     }
   })();
 </script>
-
 </body>
 </html>
+```
